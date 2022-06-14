@@ -1,22 +1,24 @@
 @page "/base64"
+@using System.Text
+@using BlazorEncoding.Models
 
 <PageTitle>Convert To Base64</PageTitle>
 
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+<MudTabs Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
     <MudTabPanel Text="Encode">
         <MudGrid>
             <MudItem xs="12" sm="7">
                 <MudPaper Class="pa-4">
-                    <MudForm>
-                       <MudTextField T="string" Label="Enter String" Variant="Variant.Text"  Lines="5" />
-                    </MudForm>
+                    <EditForm Model="@formInputModel">
+                        <MudTextField @bind-Text="formInputModel.Input" T="string" Label="Enter String" Variant="Variant.Text" Lines="5" />
+                    </EditForm>
                 </MudPaper>
             </MudItem>
             <MudItem xs="12" sm="5">
                 <MudPaper Class="pa-4 mud-height-full">
                     <MudText Typo="Typo.subtitle2">Base64 Encoded string</MudText>
 
-                    <MudText Color="@Color.Error">Output</MudText>
+                    <MudText Color="@Color.Error">@formInputModel.Output</MudText>
 
                 </MudPaper>
             </MudItem>
@@ -27,16 +29,16 @@
         <MudGrid>
             <MudItem xs="12" sm="7">
                 <MudPaper Class="pa-4">
-                    <MudForm>
-                       <MudTextField T="string" Label="Enter Base64 String" Variant="Variant.Text"  Lines="5" />
-                    </MudForm>
+                    <EditForm Model="@formInputModel">
+                        <MudTextField  @bind-Text="formInputModel.Input"  T="string" Label="Enter Base64 String" Variant="Variant.Text" Lines="10" />
+                    </EditForm>
                 </MudPaper>
             </MudItem>
             <MudItem xs="12" sm="5">
                 <MudPaper Class="pa-4 mud-height-full">
                     <MudText Typo="Typo.subtitle2">Decoded string</MudText>
 
-                    <MudText Color="@Color.Error">Output</MudText>
+                   <MudText Color="@Color.Error">@formInputModel.Output</MudText>
 
                 </MudPaper>
             </MudItem>
@@ -46,5 +48,26 @@
 
 </MudTabs>
 
+<MudButton ButtonType="ButtonType.Submit" OnClick="Convert" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Encode</MudButton>
+
+<MudButton ButtonType="ButtonType.Submit" OnClick="Decode" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Decode</MudButton>
 
 
+@code {
+    FormInputModel formInputModel = new();
+    public static string Base64Encode(string plainText)
+    {
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+        return System.Convert.ToBase64String(plainTextBytes);
+    }
+    public void Convert()
+    {
+        formInputModel.Output = Base64Encode(formInputModel.Input);
+        StateHasChanged();
+    }
+    public void Decode()
+    {
+        formInputModel.Output = Encoding.UTF8.GetString(System.Convert.FromBase64String(formInputModel.Input));
+        StateHasChanged();
+    }
+  }
