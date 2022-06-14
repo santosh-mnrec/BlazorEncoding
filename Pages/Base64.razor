@@ -1,0 +1,50 @@
+@page "/base64"
+
+<PageTitle>Convert To Base64</PageTitle>
+
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+    <MudTabPanel Text="Encode">
+        <MudGrid>
+            <MudItem xs="12" sm="7">
+                <MudPaper Class="pa-4">
+                    <MudForm>
+                       <MudTextField T="string" Label="Enter String" Variant="Variant.Text"  Lines="5" />
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="5">
+                <MudPaper Class="pa-4 mud-height-full">
+                    <MudText Typo="Typo.subtitle2">Base64 Encoded string</MudText>
+
+                    <MudText Color="@Color.Error">Output</MudText>
+
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+    </MudTabPanel>
+    <MudTabPanel Text="Decode">
+        <MudGrid>
+            <MudItem xs="12" sm="7">
+                <MudPaper Class="pa-4">
+                    <MudForm>
+                       <MudTextField T="string" Label="Enter Base64 String" Variant="Variant.Text"  Lines="5" />
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="5">
+                <MudPaper Class="pa-4 mud-height-full">
+                    <MudText Typo="Typo.subtitle2">Decoded string</MudText>
+
+                    <MudText Color="@Color.Error">Output</MudText>
+
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudTabPanel>
+
+
+</MudTabs>
+
+
+
