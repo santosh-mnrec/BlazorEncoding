@@ -3,17 +3,19 @@
 
 <PageTitle>Hashing</PageTitle>
 
-<MudSelect T="Pizza" Label="Pizza" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-    <MudSelectItem Value="@(new Pizza("Cardinale"))" />
-    <MudSelectItem Value="@(new Pizza("Diavolo"))" />
-    <MudSelectItem Value="@(new Pizza("Margarita"))" />
-    <MudSelectItem Value="@(new Pizza("Spinaci"))" />
+<MudSelect T="Algorithm" Label="Choose Hash Algorithm" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+    <MudSelectItem Value="@(new Algorithm("MD5"))" />
+    <MudSelectItem Value="@(new Algorithm("SHA256"))" />
+    <MudSelectItem Value="@(new Algorithm("SHA512"))" />
+   
 </MudSelect>
 <MudDivider />
+<MudDivider />
+<MudTextField T="string" Label="Hash Data" Variant="Variant.Text" Lines="5" />
 @code{
-    public class Pizza
+    public class Algorithm
     {
-        public Pizza(string name)
+        public Algorithm(string name)
         {
             Name = name;
         }
@@ -22,7 +24,7 @@
 
         // Note: this is important so the MudSelect can compare pizzas
         public override bool Equals(object o) {
-            var other = o as Pizza;
+            var other = o as Algorithm;
             return other?.Name==Name;
         }
 
